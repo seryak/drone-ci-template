@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  runner-docker:
+    image: drone/drone-runner-docker:1
+    environment:
+      # настройки подключения к серверу
+      - DRONE_RPC_PROTO=http
+      - DRONE_RPC_HOST=
+      - DRONE_RPC_SECRET=
+      - DRONE_RUNNER_CAPACITY=2
+      - DRONE_RUNNER_NAME=drone-runner-docker
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 3012:3000
+
+

@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  drone:
+    image: drone/drone:latest
+    environment:
+      # Включаем поддержку агентов - машин для выполнения удаленной сборки
+      - DRONE_AGENTS_ENABLED=true
+      # токен приложения github
+      - DRONE_GITHUB_CLIENT_ID=
+      - DRONE_GITHUB_CLIENT_SECRET=
+      # Генерируем RPC-клюс, который затем будет использоваться для разрешения доступа агентам
+      - DRONE_RPC_SECRET=пароль
+      # Указываем адрес хоста (например: drone.localhost)
+      - DRONE_SERVER_HOST=drone.localhost
+      # Указываем проткол хоста (http/https)
+      - DRONE_SERVER_PROTO=http
+      # Выключаем SSL и автосертификацию сервера
+      - DRONE_TLS_AUTOCERT=false
+      - DRONE_GIT_ALWAYS_AUTH=false
+      - DRONE_USER_CREATE=username:seryak,admin:true
+    restart: always
+    # папка с базой данных
+    volumes:
+      - ./data:/data
+    ports:
+      - 85:80
